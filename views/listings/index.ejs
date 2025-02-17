@@ -1,0 +1,51 @@
+<% layout("layouts/boilerplate", { location: typeof location !== "undefined" ? location : "" }) %>
+
+
+<%- include("../includes/filters.ejs", { location: typeof location !== "undefined" ? location : "" } ) %>
+    
+   
+<script>
+            const allListings = <%- JSON.stringify(allListings) %>;
+
+</script>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-9">
+        <% for(let listing of allListings){ %>
+
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+
+
+                <div class="card col listing-card">
+
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height : 20rem">
+
+                    <div class="card-img-overlay">
+
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <p class="card-text">
+                                <b>
+                                    <%= listing.title %>
+                                </b>
+                            </p>
+                        </div>
+                        <div class="price-display">
+                            <p class="listing-price">
+                                &#8377;<b>
+                                <%= listing.price ? Number(listing.price).toLocaleString("en-IN") : "N/A" %></b> / night
+                            </p>
+
+                            <i class="tax-info"> &nbsp; &nbsp; after 18% GST</i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+
+            <% } %>
+    </div>
+
+    <script src="/js/displayAfterTax.js"></script>

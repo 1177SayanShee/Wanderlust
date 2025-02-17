@@ -1,0 +1,45 @@
+
+        .filter {
+            margin-top: 2rem;
+            text-align: center;
+            margin-right: 2rem;
+            opacity: 0.7;
+        }
+
+        .filter p {
+            font-size: .9rem;
+        }
+
+        .filter:hover {
+            opacity: 1;
+            cursor: pointer;
+
+        }
+
+        #filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+        }
+
+        .tax-info {
+            display: none;
+        }
+
+        .tax-toggle {
+            border: 1px solid black;
+            border-radius: 1rem;
+            height: 3.30rem;
+            padding: 1rem;
+            margin-left: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .price-display{
+            display : flex;
+            flex-wrap: wrap;
+
+        }
+

@@ -1,0 +1,19 @@
+
+<!-- As successMsg is an Array that's why we need to check both successMsg and its length-->
+<% if(successMsg.length && successMsg){ %>   
+
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+    <%= successMsg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <% } %>
+
+  <% if(errorMsg.length && errorMsg){ %>   
+
+    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+        <%= errorMsg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    
+      <% } %>
