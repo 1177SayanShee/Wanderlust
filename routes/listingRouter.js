@@ -27,6 +27,10 @@ router.get("/new",
 router.route("/search")
       .get( wrapAsync(listingController.searchListings));
 
+// Filter Route
+router.route("/search/:category")
+      .get( wrapAsync(listingController.filterListings));
+
 
 // Show Route  ---------------------->
 router.route("/:id")

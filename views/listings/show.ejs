@@ -1,10 +1,10 @@
 <% layout("layouts/boilerplate") %>
 
-<script>
-    const mapToken = "<%= MAP_TOKEN %>";
-    const listing = <%- JSON.stringify(listing) %>; // passing the whole 'listing' obj to the map.js
-    // console.log(listing);
-</script>
+    <script>
+        const mapToken = "<%= MAP_TOKEN %>";
+        const listing = <%- JSON.stringify(listing) %>; // passing the whole 'listing' obj to the map.js
+        // console.log("listing : ", listing);
+    </script>
 
 
 
@@ -31,6 +31,7 @@
             <p class="card-text"> Owned By : <b><i>
                         <%= listing.owner.username %>
                     </i></b> </p>
+
             <p class="card-text">
                 <%= listing.description %>
             </p>
@@ -38,13 +39,29 @@
             <p class="card-text"> &#8377;
                 <%= listing.price ? Number(listing.price).toLocaleString("en-IN") : "N/A" %>
 
-                    <p class="card-text">
-                        <%= listing.location %>
-                    </p>
-                    <p class="card-text">
-                        <%= listing.country %>
-                    </p>
             </p>
+
+            <div class="row card-text">
+                <div class="col card-text">Category :</div>
+
+                <% for(category of listing.categories){ %>
+                <div class="col card-text">
+                    <%= category %>
+                </div>
+
+                <% } %>
+            </div>
+
+            
+            <br>
+
+            <p class="card-text">
+                <%= listing.location %>
+            </p>
+            <p class="card-text">
+                <%= listing.country %>
+            </p>
+
         </div>
     </div>
 
@@ -52,16 +69,16 @@
 
 
 
-        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+    <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
 
-          <div class="btns">
+        <div class="btns">
             <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
 
 
             <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
                 <button class="btn btn-dark offset-5">Delete</button>
             </form>
-          </div>
+        </div>
 
         <% } %>
 
@@ -111,16 +128,16 @@
                         <button class="btn btn-outline-dark">Submit</button>
                     </form>
 
-                    
 
-                <% } %>
 
-                    <hr>
+                    <% } %>
+
+                        <hr>
 
                         <% if(listing.reviews.length> 0){ %>
 
                             <div class="row">
-                               <p><b>All Reviews</b></p>
+                                <p><b>All Reviews</b></p>
 
                                 <% for(review of listing.reviews) { %>
 
@@ -145,20 +162,20 @@
                                                     method="POST">
                                                     <button class="btn btn-sm btn-dark">Delete</button>
                                                 </form>
-                                            <% } %>
+                                                <% } %>
 
                                         </div>
 
 
                                     </div>
 
-                                <% } %>
+                                    <% } %>
 
                             </div>
 
                             <% } %>
 
-                              
+
 
             </div>
 
@@ -168,8 +185,8 @@
             </div>
 
 
-            
-<script src="/js/map.js"></script>
+
+            <script src="/js/map.js"></script>
 
             <!-- Just Checking -->
             <!-- <div class="col-8 offset-3 mb-3">

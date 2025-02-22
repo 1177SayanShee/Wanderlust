@@ -15,23 +15,16 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createListing = async (req, res) => {
+
     const { location, country } = req.body.listing;
 
     const response = await geocodingClient.forwardGeocode({
         query: `${location}, ${country}`,
         limit: 1
-    })
-        .send()
-
-    // console.log(response.body.features[0].geometry);
-    // return res.send("done");
-
-    //    const {title, descrption, price, location, country} = req.body;
+    }).send();
 
     const url = req.file.path;
     const filename = req.file.filename;
-
-    // console.log(url, ".. ", filename);
 
     const newListing = new Listing(req.body.listing);
 
@@ -41,6 +34,7 @@ module.exports.createListing = async (req, res) => {
 
     let result = await newListing.save();
     console.log(result);
+
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
 
@@ -120,23 +114,52 @@ module.exports.deleteListing = async (req, res) => {
 };
 
 module.exports.searchListings = async (req, res) => {
-        
-        const { location } = req.query;
-        
-        if (!location) {
-            return res.redirect("/listings");
-        }
 
-        const allListings = await Listing.find({ location });
+    const { location } = req.query;
 
-        if (!allListings.length) {
-            req.flash("error", "No Listings Found!");
-            return res.redirect("/listings");
+    if (!location) {
+        return res.redirect("/listings");
+    }
 
-        }
+    const allListings = await Listing.find({ location });
 
-        res.locals.location = location;
-        res.render("listings/index.ejs", { allListings });
+    if (!allListings.length) {
+        req.flash("error", "No Listings Found!");
+        return res.redirect("/listings");
+
+    }
+
+    res.locals.location = location;
+    res.render("listings/index.ejs", { allListings });
 
 
 };
+
+module.exports.filterListings = async (req, res) => {
+    const { category } = req.params;
+    console.log(category);
+
+    if (!category) {
+        // res.locals.category = null;  // Does not need as we already set it to null in the "app.js" middleweare
+        return res.redirect("/listings");
+    }
+
+    if(category === "Trending"){
+        req.flash("success", "Latest Trendings!!");
+        return res.redirect("/listings");
+    }
+
+    const allListings = await Listing.find({ categories: category });
+    // console.log(allListings);
+
+    if (!allListings.length) {
+        console.log("No listings");
+        req.flash("error", `No Listings in ${category} Category`);
+        return res.redirect("/listings");
+    }
+
+    res.locals.category = category;
+    console.log("locals.category : ", res.locals.category);
+    res.render("listings/index.ejs", { allListings });
+
+}

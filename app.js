@@ -87,8 +87,10 @@ app.use((req, res, next) => {
     res.locals.successMsg = req.flash("success");
     res.locals.errorMsg = req.flash("error");
     res.locals.MAP_TOKEN= process.env.MAP_TOKEN;
+    res.locals.category = null;  // To ensure the "/listings" Route Work proprely
 
 
+    // console.log(res.locals);
     next();
 });
 

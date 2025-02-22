@@ -7,7 +7,8 @@
             <h3>Edit Listing</h3>
 
 
-            <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+            <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" class="needs-validation edit-form"
+                enctype="multipart/form-data" novalidate>
 
                 <div class="mb-3">
 
@@ -15,7 +16,7 @@
                     <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
                     <div class="invalid-feedback">
                         Title should be Valid!
-                      </div>
+                    </div>
 
                 </div>
 
@@ -23,25 +24,75 @@
 
 
                     <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" class="form-control" required><%=listing.description %></textarea>
+                    <textarea name="listing[description]" class="form-control"
+                        required><%=listing.description %></textarea>
                     <div class="invalid-feedback">
                         Description should be Valid!
-                      </div>
+                    </div>
 
                 </div>
 
                 <div class="mb-3">
-                  Original Listing Image <br> 
-                  <img src=<%= previewImageUrl %> alt="preview_image">
-                    
+                    Original Listing Image <br>
+                    <img src=<%=previewImageUrl %> alt="preview_image">
+
 
                 </div>
 
                 <div class="mb-3">
 
                     <label for="image" class="form-label">Upload New Image</label>
-                    <input type="file" name="listing[image]" class="form-control" >
-                    
+                    <input type="file" name="listing[image]" class="form-control">
+
+
+                </div>
+
+                <div class="mb-3">
+
+                    <div>Category : </div>
+
+                    <div class="category">
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]" value="Room">
+                            <label class="form-check-label" for="inlineCheckbox1">Rooms</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]"
+                                value="Mountain">
+                            <label class="form-check-label" for="inlineCheckbox2">Mountain</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]" value="Boat">
+                            <label class="form-check-label" for="inlineCheckbox3">Boats</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]" value="City">
+                            <label class="form-check-label" for="inlineCheckbox1">Iconic City</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]" value="Pool">
+                            <label class="form-check-label" for="inlineCheckbox2">Pools</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]"
+                                value="Camping">
+                            <label class="form-check-label" for="inlineCheckbox3">Camping</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]" value="Farm">
+                            <label class="form-check-label" for="inlineCheckbox2">Farm</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="listing[categories][]" value="Castle">
+                            <label class="form-check-label" for="inlineCheckbox3">Castle</label>
+                        </div>
+                    </div>
+
+
+                    <div id="category-feedback" class="invalid-feedback">
+                        Please select at least one category.
+                    </div>
 
                 </div>
 
@@ -50,19 +101,21 @@
                     <div class="mb-3 col-md-4">
 
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+                        <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control"
+                            required>
                         <div class="invalid-feedback">
                             Price should be Valid!
-                          </div>
+                        </div>
                     </div>
 
                     <div class="mb-3 col-md-8">
 
                         <label for="country" class="form-label">Country</label>
-                        <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
+                        <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control"
+                            required>
                         <div class="invalid-feedback">
                             Country should be Valid!
-                          </div>
+                        </div>
 
                     </div>
 
@@ -72,10 +125,11 @@
                 <div class="mb-3">
 
                     <label for="location" class="form-label">Location</label>
-                    <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+                    <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control"
+                        required>
                     <div class="invalid-feedback">
                         Location should be Valid!
-                      </div>
+                    </div>
 
                 </div>
 
@@ -88,33 +142,10 @@
     </div>
 
 
-    <!-- <label for="title">Title : </label>
-    <input type="text" name="listing[title]" value="<%= listing.title %>">
+    <script>
+        // If we share any object or array or any string value then we need to access them first in the script tag
+        //  inside the EJS file then only we can access them with the linked script files
+        const listing = <%- JSON.stringify(listing) %>; 
+    </script>
 
-    <br>
-    <br>
-
-    <label for="description">Description : </label>
-    <textarea name="listing[description]"><%=listing.description %></textarea>
-
-    <br><br>
-
-    <label for="price">Price : </label>
-    <input type="number" name="listing[price]" value="<%= listing.price %>">
-
-    <br><br>
-
-
-    <label for="location">location : </label>
-    <input type="text" name="listing[location]" value="<%= listing.location %>">
-
-    <br><br>
-
-    <label for="country">country : </label>
-    <input type="text" name="listing[country]" value="<%= listing.country %> ">
-
-    <br><br>
-
-
-    <button>Edit</button>
-    </form> -->
+    <script src="/js/editForm.js"></script>
