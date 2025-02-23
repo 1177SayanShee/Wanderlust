@@ -31,7 +31,7 @@ const userRouter = require("./routes/userRouter.js");
 
 const app = express();  // app instance
 
-const port = 8080;  // port
+const port = 3000;  // port
 
 const dbUrl = process.env.MONGO_ATLAS_URL;  // Database URL
 
