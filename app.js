@@ -5,7 +5,7 @@
 
 require('dotenv').config();
 
-// console.log(process.env.SECRET)
+
 
 
 const express = require("express");
@@ -89,17 +89,8 @@ app.use((req, res, next) => {
     res.locals.MAP_TOKEN= process.env.MAP_TOKEN;
     res.locals.category = null;  // To ensure the "/listings" Route Work proprely
 
-
-    // console.log(res.locals);
     next();
 });
-
-
-// // Root
-// app.get("/", (req, res) => {
-//     res.send("This is Root");
-//     // console.log("This is root");
-// });
 
 
 // Listings Router ------->

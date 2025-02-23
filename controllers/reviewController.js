@@ -17,8 +17,6 @@ module.exports.createReview = async (req, res) => {
     await newReview.save();
     await listing.save();
 
-    console.log("review saved");
-    console.log(newReview);
 
     req.flash("success", "Review Posted!");
     res.redirect(`/listings/${id}`);

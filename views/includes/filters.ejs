@@ -1,6 +1,6 @@
 <script>
     const category = "<%= category ? category : 'Uncategorized' %>";
-    console.log("category in filters:", category);
+    // console.log("category in filters:", category);
 </script>
 
 
@@ -81,7 +81,7 @@
     for (let filter of filters) {
         filter.addEventListener("click", async (event) => {
             const id = filter.getAttribute("id");
-            console.log("id : ", id);
+            // console.log("id : ", id);
             const url = `http://localhost:3000/listings/search/${id}`;
 
 

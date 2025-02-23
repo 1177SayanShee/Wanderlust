@@ -14,7 +14,6 @@ module.exports.signUp = async (req, res) => {
 
     try {
         let registeredUser = await User.register(newUser, password);
-        console.log(registeredUser);
         req.login(registeredUser, (err) => {
             if (err) next(err);
 
@@ -54,7 +53,4 @@ module.exports.logOut = async (req, res) => {
         req.flash("success", "You are successfully Logged Out!!");
         res.redirect("/listings");
     });
-
-
-
 };

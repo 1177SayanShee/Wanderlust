@@ -33,7 +33,7 @@ module.exports.createListing = async (req, res) => {
     newListing.geometry = response.body.features[0].geometry;
 
     let result = await newListing.save();
-    console.log(result);
+    // console.log(result);
 
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -108,7 +108,7 @@ module.exports.updateListing = async (req, res) => {
 module.exports.deleteListing = async (req, res) => {
     const { id } = req.params;
     const deleted = await Listing.findByIdAndDelete(id);
-    console.log(deleted);
+    // console.log(deleted);
     req.flash("success", "Listing Deleted!");
     return res.redirect("/listings");
 };
@@ -137,7 +137,7 @@ module.exports.searchListings = async (req, res) => {
 
 module.exports.filterListings = async (req, res) => {
     const { category } = req.params;
-    console.log(category);
+    // console.log(category);
 
     if (!category) {
         // res.locals.category = null;  // Does not need as we already set it to null in the "app.js" middleweare
@@ -150,16 +150,14 @@ module.exports.filterListings = async (req, res) => {
     }
 
     const allListings = await Listing.find({ categories: category });
-    // console.log(allListings);
 
     if (!allListings.length) {
-        console.log("No listings");
         req.flash("error", `No Listings in ${category} Category`);
         return res.redirect("/listings");
     }
 
     res.locals.category = category;
-    console.log("locals.category : ", res.locals.category);
+
     res.render("listings/index.ejs", { allListings });
 
 }
